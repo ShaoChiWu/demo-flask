@@ -26,10 +26,16 @@ def get_artists_by_prefix(prefix):
     rsp = Response(json.dumps(res), status=200, content_type="application/json")
     return rsp
 
+@app.route('/users/<uni>')
+def get_users_resource(uni):
+    res = UserResource.get_by_uni(uni)
+    rsp = Response(json.dumps(res, default=str), status=200, content_type="application/json")
+    return rsp
+
 
 @app.route('/users')
 def get_users():
-    res = UserResource.get_by_template(None)
+    res = UserResource.get_user_and_gender(None)
     rsp = Response(json.dumps(res, default=str), status=200, content_type="application/json")
     return rsp
 
